@@ -47,3 +47,35 @@ package { 'epel-release':
 	source	=> "http://ftp.iij.ad.jp/pub/linux/fedora/epel//7/x86_64/e/epel-release-7-1.noarch.rpm",
 	allow_virtual => true,
 }
+
+file { '/etc/nginx/site-available':
+	ensure => directory,
+	owner => 'root',
+	group => 'root',
+	mode => '0755',
+}
+
+file { '/etc/nginx/site-enabled':
+	ensure => directory,
+	owner => 'root',
+	group => 'root',
+	mode => '0755',
+}
+
+file { '/etc/nginx/site-available/mysite.conf':
+	ensure => present,
+	owner => 'root',
+	group => 'root',
+	mode => '0644',
+	require => File['/etc/nginx/site-available'],
+}
+
+file { '/etc/nginx/site-enabled/mysite.conf':
+	ensure => link,
+	target => '/etc/nginx/site-available/mysite.conf',
+	owner => 'root',
+	group => 'root',
+	mode => '0644',
+	require => File['/etc/nginx/site-available/mysite.conf'],
+}
+
