@@ -41,3 +41,9 @@ service { 'nginx':
 	require	=> File['/etc/nginx/conf.d/my.conf'],
 }
 
+package { 'epel-release':
+	ensure	=> installed,
+	provider => rpm,
+	source	=> "http://ftp.iij.ad.jp/pub/linux/fedora/epel//7/x86_64/e/epel-release-7-1.noarch.rpm",
+	allow_virtual => true,
+}
